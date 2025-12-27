@@ -16,7 +16,7 @@ st.write("Predict whether a shipment will be delivered on time")
 # -------------------------------
 # LOAD DATA
 # -------------------------------
-df = pd.read_excel("shipment_dataset_10000.xlsx")
+df = pd.read_excel("shipment_dataset_cleaned.xlsx")
 
 TARGET = "on_time_delivery"
 
