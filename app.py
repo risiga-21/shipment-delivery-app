@@ -143,4 +143,4 @@ if st.button("Predict Delivery Status"):
 
     col1, col2 = st.columns(2)
     col1.metric("Delay Probability", f"{delay_prob:.2f}")
-    col2.metric("On-Time Probability", f"{on_time_prob:.2f}"
+    col2.metric("On-Time Probability", f"{on_time_prob:.2f}")
