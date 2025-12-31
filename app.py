@@ -129,7 +129,17 @@ if st.button("Predict Delivery Status"):
         "carrier_name": carrier_name
     }])
 
-    prob = pipe.predict_proba(input_df)[0][1]
+    THRESHOLD = 0.8  # business risk tolerance
+
+on_time_prob = 1 - delay_prob
+
+if delay_prob >= THRESHOLD:
+    st.error(f"❌ Delivery Delay Expected (Risk: {delay_prob:.2f})")
+else:
+    st.success(f"✅ On-Time Delivery Expected (Confidence: {on_time_prob:.2f})")
+
+st.progress(on_time_prob)
+
     pred = pipe.predict(input_df)[0]
 
     if pred == 1:
