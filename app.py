@@ -128,19 +128,19 @@ if st.button("Predict Delivery Status"):
         "holiday_period": holiday_period,
         "carrier_name": carrier_name
     }])
+if st.button("Predict Delivery Status"):
+    input_df = pd.DataFrame([data])
+    pred = pipe.predict(input_df)[0]
+    delay_prob = pipe.predict_proba(input_df)[0][1]
 
-    THRESHOLD = 0.8  # business risk tolerance
+    THRESHOLD = 0.8
+    on_time_prob = 1 - delay_prob
 
-on_time_prob = 1 - delay_prob
-
-if delay_prob >= THRESHOLD:
-    st.error(f"❌ Delivery Delay Expected (Risk: {delay_prob:.2f})")
-else:
-    st.success(f"✅ On-Time Delivery Expected (Confidence: {on_time_prob:.2f})")
-
-st.progress(on_time_prob)
-
-    if pred == 1:
-        st.success(f"✅ On-Time Delivery (Probability: {prob:.2f})")
+    if delay_prob >= THRESHOLD:
+        st.error(f"❌ Delivery Delay Expected (Risk: {delay_prob:.2f})")
     else:
-        st.error(f"❌ Delivery Delay (Probability: {1 - prob:.2f})")
+        st.success(f"✅ On-Time Delivery Expected (Confidence: {on_time_prob:.2f})")
+
+    col1, col2 = st.columns(2)
+    col1.metric("Delay Probability", f"{delay_prob:.2f}")
+    col2.metric("On-Time Probability", f"{on_time_prob:.2f}"
