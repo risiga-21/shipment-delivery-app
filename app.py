@@ -140,8 +140,6 @@ else:
 
 st.progress(on_time_prob)
 
-    pred = pipe.predict(input_df)[0]
-
     if pred == 1:
         st.success(f"✅ On-Time Delivery (Probability: {prob:.2f})")
     else:
