@@ -128,7 +128,7 @@ if st.button("Predict Delivery Status"):
         "holiday_period": holiday_period,
         "carrier_name": carrier_name
     }])
-if st.button("if st.button("Predict Delivery Status", key="predict_btn"):
+if st.button("Predict Delivery Status", key="predict_btn"):
     input_df = pd.DataFrame([data])
     pred = pipe.predict(input_df)[0]
     delay_prob = pipe.predict_proba(input_df)[0][1]
