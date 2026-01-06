@@ -130,13 +130,14 @@ if st.button("Predict Delivery Status"):
     }])
 
     THRESHOLD = 0.8
-    on_time_prob = 1 - delay_prob
+probs = pipe.predict_proba(input_df)[0]
 
-    if delay_prob >= THRESHOLD:
-        st.error(f"❌ Delivery Delay Expected (Risk: {delay_prob:.2f})")
-    else:
-        st.success(f"✅ On-Time Delivery Expected (Confidence: {on_time_prob:.2f})")
+delay_prob = probs[0]
+on_time_prob = probs[1]
 
-    col1, col2 = st.columns(2)
-    col1.metric("Delay Probability", f"{delay_prob:.2f}")
-    col2.metric("On-Time Probability", f"{on_time_prob:.2f}")
+prediction = pipe.predict(input_df)[0]
+
+if prediction == 1:
+    st.success(f"✅ On-Time Delivery (Probability: {on_time_prob:.2f})")
+else:
+    st.error(f"❌ Delivery Delayed (Probability: {delay_prob:.2f})")
